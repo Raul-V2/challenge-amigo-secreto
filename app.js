@@ -6,38 +6,41 @@ let resultado = document.getElementById('resultado');
 
 function agregarAmigo() {
     nombre = document.getElementById('amigo').value;
+    // comprobar si la caja de texto esta vacia
     if (nombre =='') {
-        alert('No a ingresado ningun nombre, intentelo otra vez');
+        alert('Por favor, ingrese un nombre válido');
+    // comprueba si registra dos veces un nombre
     }else{
         if(arrayAmigo.includes(nombre)){
-            alert('ese nombre ya se encuentra en la lista, intentelo otra vez');
+            alert('Ese nombre ya se encuentra en la lista, intentelo otra vez');
+            limpiar('#amigo');
         }
+        //agrega nombres a la lista
         else{
             arrayAmigo.push(nombre);
-            lista.innerHTML = arrayAmigo+'</br>';
-            console.log(nombre);
-            console.log(arrayAmigo.length);
-            limpiar();
+            let nuevoAmigo = document.createElement('li');
+            nuevoAmigo.textContent = nombre;
+            // Agregar el <li> al elemento <ul>
+            lista.appendChild(nuevoAmigo); 
+            // limpia la caja de texto y el resultado del sorteo
+            limpiar('#amigo');
+            resultado.innerHTML='';
         }
-    }
-    
+    }    
 }
 
 function sortearAmigo(){
+    // genera un numnero random para elegir al amigo secreto
     let contador = Math.floor(Math.random()*arrayAmigo.length);
-    console.log(contador);
+    //asigna el nombre
     let elegido = arrayAmigo[contador];
-    resultado.innerHTML = 'El amigo secreto es:'+ elegido;
-    limpiar();
+    resultado.innerHTML = 'El amigo secreto sortado es:'+ elegido;
+    //limpia la lista y el array para poder agregar nuevos nombres
+    lista.innerHTML='';
+    arrayAmigo = [];
 }
 
-function limpiar(){
-    nombre = document.getElementById('amigo').value = '';    
+function limpiar(id){
+    let valorCaja = document.querySelector(id).value = '';     
 }
 
-/*
-function listaAmigos(elemento, texto){
-    let elementoHtml = document.getElementById(listaAmigos);
-    elementoHtml.innerHTML = texto;
-    return;
-}*/
